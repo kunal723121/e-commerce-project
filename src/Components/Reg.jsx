@@ -1,5 +1,6 @@
 import  Axios  from "axios"
 import { useState } from "react"
+import { useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 let Reg=()=>{
     let nav=useNavigate()
@@ -20,11 +21,23 @@ let Reg=()=>{
         });
         
     }
+    let r = useRef();
+
+// if (msg.username.length > 0 || msg.password.length > 0) {
+//     if (r.current) {
+//         r.current.disabled = false;
+//     }
+// } else {
+//     if (r.current) {
+//         r.current.disabled = true;
+//     }
+// }
     return <>
     {/* <h3>{JSON.stringify(msg)}</h3> */}
     <div className="container mt-5">
-        <div className="row">
+        <div className="card-body">
             <div className="ml-5 col-10">
+                
                 <form>
                     <div className="form-group">
                         <label>USERNAME:</label>
@@ -34,9 +47,10 @@ let Reg=()=>{
                         <label>PASSWORD:</label>
                         <input onChange={uphand} name="password" className="form-control" type="number"/>
                     </div>
-                    <button onClick={submit} className="btn btn-primary">REGISTER</button>
+                    <button onClick={submit} className="btn btn-primary"  ref={r}>REGISTER</button>
                     <h4 className="mt-3">For old user <Link to='/Login'>Login</Link> </h4>
                 </form>
+                
             </div>
         </div>
     </div>

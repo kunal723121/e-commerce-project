@@ -11,13 +11,13 @@ let Nav=()=>{
     return <div>
         <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
             <div className="container">
-            <Link className="navbar-brand">E-com</Link>
+            <Link to="/Nav" className="navbar-brand">E-com</Link>
             <div className="ml-auto">
                 <ul className="navbar-nav">
-                    <li><Link className="nav-link">All-product</Link></li>
-                    <li><Link className="nav-link">Add-product</Link></li>
-                    <li><Link className="nav-link">Update</Link></li>
-                    <li><Link className="nav-link">Admin</Link></li>
+                    <li><Link to='/All' className="nav-link">All-product</Link></li>
+                    <li><Link to='/Add' className="nav-link">Add-product</Link></li>
+                    {/* <li><Link className="nav-link">Update</Link></li> */}
+                    <li><Link to='/Admin' className="nav-link">Admin</Link></li>
                     <li onClick={lg}><Link  className="nav-link">Logout</Link></li>
                 </ul>
             </div>

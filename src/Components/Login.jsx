@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Axios from "axios"
 import Reg from "./Reg"
+import { useRef } from "react"
 let Login=()=>{
     let nav=useNavigate()
     let [msg,upmsg]=useState({
@@ -11,6 +12,8 @@ let Login=()=>{
     let uphand=(event)=>{
         upmsg({...msg,[event.target.name]:event.target.value})
     }
+    let isLoginDisabled = msg.username.length <= 0 && msg.password.length <= 0;
+
     let submit=(event)=>{
         event.preventDefault();
         Axios.post('http://localhost:8080/login/login',msg).then((resp)=>{
@@ -31,7 +34,7 @@ let Login=()=>{
     }
     return <>
     <div className="container mt-5">
-        <div className="row">
+        <div className="card-body">
             <div className="ml-5 col-10">
                 <form>
                     <div className="form-group">

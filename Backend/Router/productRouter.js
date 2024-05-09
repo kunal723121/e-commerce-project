@@ -9,16 +9,17 @@ productRouter.get('/all',async (req,resp)=>{
     // resp.status(200).json(product)
 })
 
-//http://localhost:8080/product/create
-productRouter.post('/create',async (req,resp)=>{
-    let {id,name,photo,price,details}=req.body
+// http://localhost:8080/product/create
+productRouter.post('/create',async(req,resp)=>{
+    const {id,name,photo,price,details}=req.body
     let product=await Product.findOne({id:id})
     if(product)
     {
         return resp.send({"msg":"product already exist"})
     }
     product=new Product({id,name,photo,price,details})
-    product.save();
+    await product.save();
+    resp.send({"msg":"product added"})
 })
 
 // http://localhost:8080/product/update
