@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom"
 import Axios from "axios"
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
+import { useAuth } from "./Auth"
 let Update=()=>{
+    let{islg}=useAuth()
     let nav=useNavigate()
     let lg=()=>{
         Axios.put('http://localhost:8080/login/logout').then().catch();
@@ -31,7 +33,9 @@ let Update=()=>{
     }
     return <>
     {/* <pre>{JSON.stringify(state)}</pre> */}
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+    {
+        islg ? <>
+        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
             <div className="container">
             <Link to="/Nav" className="navbar-brand">E-com</Link>
             <div className="ml-auto">
@@ -72,6 +76,10 @@ let Update=()=>{
             </form>
         </div>    
     </div>
+        </>:<>
+        <h1><Link to='/Login'>Login</Link> to access the page</h1>
+        </>
+    }
     </>
 }
 export default Update

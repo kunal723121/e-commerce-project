@@ -21,6 +21,10 @@ let productschema=mongoose.Schema({
         type: String,
         require:true
     },
+    date:{
+        type:Date,
+        default:Date
+    }
 })
 let Product=mongoose.model("product",productschema)
 

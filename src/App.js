@@ -1,5 +1,6 @@
 import Reg from "./Components/Reg"
-import Login from "./Components/Login"
+// import Login from "./Components/Login"
+import { Login } from "./Components/Login"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Nav from "./Components/Nav"
 import Add from "./Components/Add"
@@ -7,19 +8,24 @@ import Allproduct from "./Components/Allproduct"
 import Buy from "./Components/Buy"
 import Admin from "./Components/Admin"
 import Update from "./Components/Update"
+import Singlepage from "./Components/Singlepage"
+import { logc } from "./Components/Login"
+import { useContext } from "react"
+import { Authprovider } from "./Components/Auth"
 let App=()=>{
     return <>
     <BrowserRouter>
     <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/Login" element={<Login/>}/>
+        <Route path="/" element={<Authprovider><Login/></Authprovider>}/>
+        <Route path="/Login" element={<Authprovider><Login/></Authprovider>}/>
         <Route path="/Reg" element={<Reg/>}/>
-        <Route path="/Nav" element={<Nav/>}/>
-        <Route path="/Add" element={<Add/>}/>
-        <Route path="/All" element={<Allproduct/>}/>
-        <Route path="/Buy" element={<Buy/>}/>
-        <Route path="/Admin" element={<Admin/>}/>
-        <Route path="/Update" element={<Update/>}/>
+        <Route path="/Nav" element={<Authprovider><Nav/></Authprovider>}/>
+        <Route path="/Add" element={<Authprovider><Add/></Authprovider>}/>
+        <Route path="/All" element={<Authprovider><Allproduct/></Authprovider>}/>
+        <Route path="/Buy" element={<Authprovider><Buy/></Authprovider>}/>
+        <Route path="/Admin" element={<Authprovider><Admin/></Authprovider>}/>
+        <Route path="/Update" element={<Authprovider><Update/></Authprovider>}/>
+        <Route path="/Singlepage" element={<Authprovider><Singlepage/></Authprovider>}/>
     </Routes>
     </BrowserRouter>
     </>

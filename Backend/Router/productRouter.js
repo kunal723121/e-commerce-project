@@ -1,5 +1,6 @@
 import Express from "express";
 import Product from "../productmodel.js";
+import mongoose1 from "mongoose";
 let productRouter=Express.Router()
 
 // http://localhost:8080/product/all
@@ -56,7 +57,7 @@ productRouter.get('/all/:id',async (req,resp)=>{
     let product=await Product.findOne({id:is})
     if(!product)
     {
-       return resp.send({"msg":"product is not available"})
+       return resp.send({"msg":0})
     }
     product=await Product.findOne({id:is})
     resp.send(product)

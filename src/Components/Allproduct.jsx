@@ -3,7 +3,9 @@ import { useState } from "react"
 import  Axios  from "axios"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { useAuth } from "./Auth"
 let Allproduct=()=>{
+    let{islg}=useAuth()
     let [st,upst]=useState([])
     useEffect(()=>{
         Axios.get('http://localhost:8080/product/all').then((res)=>{
@@ -20,11 +22,34 @@ let Allproduct=()=>{
         navi('/Buy',{state:data})
         // alert(data.image)
         }
+        let[id,updateid]=useState()
+    let sub=(event)=>{
+
+        updateid(event.target.value)
+        
+    }
+    let na=useNavigate()
+    let x=useNavigate()
+    let submitHandler=(event)=>{
+        event.preventDefault();
+        na('/Singlepage',{state:id})
+        window.location.reload()
+        // na(0)
+    }
     return <>
     {/* <pre>{JSON.stringify(st)}</pre> */}
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+    {
+        islg ? <>
+        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
             <div className="container">
             <Link to="/Nav" className="navbar-brand">E-com</Link>
+
+            <form className="frm1"  role="search" onSubmit={submitHandler}>
+               <label className="label1" for="search">Search for stuff</label>
+               <input onInput={sub} className=" input1 ipt1" id="search" name="x" type="number" placeholder="Search product by id..." autofocus required />
+               <button  className="bbtn bbtn1" type="submit">Go</button>    
+            </form>
+
             <div className="ml-auto">
                 <ul className="navbar-nav">
                     <li><Link className="nav-link">All-product</Link></li>
@@ -57,6 +82,10 @@ let Allproduct=()=>{
             }
         </div>
     </div>
+        </>:<>
+        <h1><Link to='/Login'>Login</Link> to access the page</h1>
+        </>
+    }
     </>
 }
 export default Allproduct

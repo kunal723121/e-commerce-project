@@ -1,24 +1,49 @@
 import Axios from "axios"
 import { Carousel, CarouselItem } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
-
+import { useContext, useState } from "react"
+import { logc } from "./Login"
+import { useAuth } from "./Auth"
 let Nav=()=>{
+    let{islg}=useAuth()
     let nav=useNavigate()
-    let lg=()=>{
+    let lgh=()=>{
         Axios.put('http://localhost:8080/login/logout').then().catch();
         nav('/Login')
     }
+    let[id,updateid]=useState()
+    let sub=(event)=>{
+
+        updateid(event.target.value)
+        
+    }
+    let na=useNavigate()
+    let submitHandler=(event)=>{
+        event.preventDefault();
+        na('/Singlepage',{state:id})
+        window.location.reload()
+        // na(0)
+    }
     return <div>
+        {
+            islg ? <>
         <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
             <div className="container">
             <Link to="/Nav" className="navbar-brand">E-com</Link>
+            
+            <form className="frm1"  role="search" onSubmit={submitHandler}>
+               <label className="label1" for="search">Search for stuff</label>
+               <input  onInput={sub} className=" input1 ipt1" id="search" name="x" type="number" placeholder="Search product by id..." autofocus required />
+               <button  className="bbtn bbtn1" type="submit">Go</button>    
+            </form>
+
             <div className="ml-auto">
                 <ul className="navbar-nav">
                     <li><Link to='/All' className="nav-link">All-product</Link></li>
                     <li><Link to='/Add' className="nav-link">Add-product</Link></li>
                     {/* <li><Link className="nav-link">Update</Link></li> */}
                     <li><Link to='/Admin' className="nav-link">Admin</Link></li>
-                    <li onClick={lg}><Link  className="nav-link">Logout</Link></li>
+                    <li onClick={lgh}><Link  className="nav-link">Logout</Link></li>
                 </ul>
             </div>
             </div>
@@ -59,6 +84,8 @@ let Nav=()=>{
             </div>
         </div>
         </nav>
+        </> : <><h1><Link to='/Login'>Login</Link> to access the page</h1></>
+} 
     </div>
 }
 

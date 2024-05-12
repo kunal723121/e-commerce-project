@@ -32,28 +32,25 @@ let Reg=()=>{
 //         r.current.disabled = true;
 //     }
 // }
-    return <>
-    {/* <h3>{JSON.stringify(msg)}</h3> */}
-    <div className="container mt-5">
+    return <div className="bgimg">
+    <div className="container " >
         <div className="card-body">
-            <div className="ml-5 col-10">
-                
-                <form>
+            <div className="ml-5 col-10 ">
+                <form className="mt-10 ml-5">
                     <div className="form-group">
-                        <label>USERNAME:</label>
-                        <input onChange={uphand} name="username" className="form-control" type="text"/>
+                        <label className="red">USERNAME</label>
+                        <input name="username" onChange={uphand} className="form-control" type="text"/>
                     </div>
                     <div className="form-group">
-                        <label>PASSWORD:</label>
+                        <label className="red">PASSWORD</label>
                         <input onChange={uphand} name="password" className="form-control" type="number"/>
                     </div>
-                    <button onClick={submit} className="btn btn-primary"  ref={r}>REGISTER</button>
-                    <h4 className="mt-3">For old user <Link to='/Login'>Login</Link> </h4>
+                    <button onClick={submit} className="btn btn-primary">Register</button>
+                    <h4 className="mt-3">For new user <Link className="red" to='/Login'>Login</Link> </h4>
                 </form>
-                
             </div>
         </div>
     </div>
-    </>
+    </div>
 }
 export  default Reg

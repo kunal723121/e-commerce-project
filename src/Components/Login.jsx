@@ -1,19 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Axios from "axios"
-import Reg from "./Reg"
-import { useRef } from "react"
+import { useAuth } from "./Auth"
 let Login=()=>{
+    let{uplg}=useAuth()
     let nav=useNavigate()
     let [msg,upmsg]=useState({
         username:"",
         password:0
     })
+    
     let uphand=(event)=>{
         upmsg({...msg,[event.target.name]:event.target.value})
     }
     let isLoginDisabled = msg.username.length <= 0 && msg.password.length <= 0;
-
+    useEffect(()=>{
+        
+    })
     let submit=(event)=>{
         event.preventDefault();
         Axios.post('http://localhost:8080/login/login',msg).then((resp)=>{
@@ -25,6 +28,7 @@ let Login=()=>{
             }
             else
             {
+                uplg(true)
                 nav('/Nav')
             }
         }).catch(()=>{
@@ -32,25 +36,27 @@ let Login=()=>{
         });
         
     }
-    return <>
-    <div className="container mt-5">
+    return <div>
+    <div className="bgimg">
+    <div className="container " >
         <div className="card-body">
-            <div className="ml-5 col-10">
-                <form>
+            <div className="ml-5 col-10 ">
+                <form className="mt-10 ml-5">
                     <div className="form-group">
-                        <label>USERNAME:</label>
+                        <label className="red">USERNAME</label>
                         <input name="username" onChange={uphand} className="form-control" type="text"/>
                     </div>
                     <div className="form-group">
-                        <label>PASSWORD:</label>
+                        <label className="red">PASSWORD</label>
                         <input onChange={uphand} name="password" className="form-control" type="number"/>
                     </div>
                     <button onClick={submit} className="btn btn-primary">LOGIN</button>
-                    <h4 className="mt-3">For new user <Link to='/Reg'>Register</Link> </h4>
+                    <h4 className="mt-3">For new user <Link className="red" to='/Reg'>Register</Link> </h4>
                 </form>
             </div>
         </div>
     </div>
-    </>
+    </div>
+    </div>
 }
-export default Login
+export {Login};
