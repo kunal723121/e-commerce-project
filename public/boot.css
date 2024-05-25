@@ -10061,7 +10061,7 @@
   
   .frm1 {
     position: relative;
-    width: 30rem;
+    width: 28rem;
     height:2.5rem;
     background: var(--gray);
     border-radius: var(--rad);
@@ -10132,5 +10132,8 @@
 .red{
   color:white;
   font-size: 30px;
+}
+.l{
+  margin-left: 95%;
 }
   

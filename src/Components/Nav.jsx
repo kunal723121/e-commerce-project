@@ -5,11 +5,13 @@ import { useContext, useState } from "react"
 import { logc } from "./Login"
 import { useAuth } from "./Auth"
 let Nav=()=>{
-    let{islg}=useAuth()
+    let{islg,uplg}=useAuth()
     let nav=useNavigate()
     let lgh=()=>{
         Axios.put('http://localhost:8080/login/logout').then().catch();
         nav('/Login')
+        uplg(false)
+        localStorage.removeItem("islogin")
     }
     let[id,updateid]=useState()
     let sub=(event)=>{
@@ -21,7 +23,7 @@ let Nav=()=>{
     let submitHandler=(event)=>{
         event.preventDefault();
         na('/Singlepage',{state:id})
-        window.location.reload()
+        // window.location.reload()
         // na(0)
     }
     return <div>
@@ -43,6 +45,8 @@ let Nav=()=>{
                     <li><Link to='/Add' className="nav-link">Add-product</Link></li>
                     {/* <li><Link className="nav-link">Update</Link></li> */}
                     <li><Link to='/Admin' className="nav-link">Admin</Link></li>
+                    <li><Link to='/placedorder' className="nav-link"> Placed-Order</Link></li>
+                    <li><Link to='/receivedorder' className="nav-link"> Received-Order</Link></li>
                     <li onClick={lgh}><Link  className="nav-link">Logout</Link></li>
                 </ul>
             </div>

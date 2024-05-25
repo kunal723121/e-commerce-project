@@ -5,16 +5,18 @@ import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { useAuth } from "./Auth"
 let Allproduct=()=>{
-    let{islg}=useAuth()
+    let{islg,uplg}=useAuth()
     let [st,upst]=useState([])
     useEffect(()=>{
-        Axios.get('http://localhost:8080/product/all').then((res)=>{
+        Axios.get('http://localhost:8080/product/allproducts').then((res)=>{
             upst(res.data)
         },[st]).catch();
     })
     let nav=useNavigate()
     let lg=()=>{
         Axios.put('http://localhost:8080/login/logout').then().catch();
+        uplg(false)
+        localStorage.removeItem("islogin")
         nav('/Login')
     }
     let navi=useNavigate()
@@ -33,7 +35,7 @@ let Allproduct=()=>{
     let submitHandler=(event)=>{
         event.preventDefault();
         na('/Singlepage',{state:id})
-        window.location.reload()
+        // window.location.reload()
         // na(0)
     }
     return <>
@@ -56,6 +58,8 @@ let Allproduct=()=>{
                     <li><Link to='/Add' className="nav-link">Add-product</Link></li>
                     {/* <li><Link className="nav-link">Update</Link></li> */}
                     <li><Link to='/Admin' className="nav-link">Admin</Link></li>
+                    <li><Link to='/placedorder' className="nav-link"> Placed-Order</Link></li>
+                    <li><Link to='/receivedorder' className="nav-link"> Received-Order</Link></li>
                     <li onClick={lg}><Link  className="nav-link">Logout</Link></li>
                 </ul>
             </div>
@@ -66,9 +70,9 @@ let Allproduct=()=>{
         <div className="row">
             {
                 st.map((x)=>{
-                    return <div className="col-12">
+                    return <div className="col-6">
                         <div className="card-header">
-                        <img width="200px" src={x.photo}/>
+                        <img width="200rem" height="200rem" src={x.photo}/>
                         </div>
                         <div className="card-body">
                         <h6>Id:{x.id}</h6>

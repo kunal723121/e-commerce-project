@@ -9,9 +9,9 @@ import Buy from "./Components/Buy"
 import Admin from "./Components/Admin"
 import Update from "./Components/Update"
 import Singlepage from "./Components/Singlepage"
-import { logc } from "./Components/Login"
-import { useContext } from "react"
+import Receivedorder from "./Components/Receivedorder"
 import { Authprovider } from "./Components/Auth"
+import Placedorder from "./Components/Placedorder"
 let App=()=>{
     return <>
     <BrowserRouter>
@@ -19,6 +19,8 @@ let App=()=>{
         <Route path="/" element={<Authprovider><Login/></Authprovider>}/>
         <Route path="/Login" element={<Authprovider><Login/></Authprovider>}/>
         <Route path="/Reg" element={<Reg/>}/>
+        <Route path="/placedorder" element={<Placedorder/>}/>
+        <Route path="/receivedorder" element={<Authprovider><Receivedorder/></Authprovider>}/>
         <Route path="/Nav" element={<Authprovider><Nav/></Authprovider>}/>
         <Route path="/Add" element={<Authprovider><Add/></Authprovider>}/>
         <Route path="/All" element={<Authprovider><Allproduct/></Authprovider>}/>

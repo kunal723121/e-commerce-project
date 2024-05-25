@@ -4,7 +4,9 @@ export function useAuth(){
     return useContext(con)
 }
 export let Authprovider=(props)=>{
-    let[islg,uplg]=useState(false)
+    let[islg,uplg]=useState(()=>{
+        return localStorage.getItem("islogin")==="true";
+    })
     let val={
         islg,
         uplg

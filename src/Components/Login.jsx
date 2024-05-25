@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Axios from "axios"
 import { useAuth } from "./Auth"
+import { useRef } from "react"
 let Login=()=>{
     let{uplg}=useAuth()
     let nav=useNavigate()
@@ -9,14 +10,20 @@ let Login=()=>{
         username:"",
         password:0
     })
-    
+    let Reference=useRef()
+    useEffect(()=>{
+        if(msg.username.length>0 && msg.password.length>0)
+        {
+            Reference.current.disabled=false
+        }
+        else
+        {
+            Reference.current.disabled=true
+        }
+    })
     let uphand=(event)=>{
         upmsg({...msg,[event.target.name]:event.target.value})
     }
-    let isLoginDisabled = msg.username.length <= 0 && msg.password.length <= 0;
-    useEffect(()=>{
-        
-    })
     let submit=(event)=>{
         event.preventDefault();
         Axios.post('http://localhost:8080/login/login',msg).then((resp)=>{
@@ -29,12 +36,12 @@ let Login=()=>{
             else
             {
                 uplg(true)
+                localStorage.setItem("islogin","true")
                 nav('/Nav')
             }
         }).catch(()=>{
             
         });
-        
     }
     return <div>
     <div className="bgimg">
@@ -48,9 +55,9 @@ let Login=()=>{
                     </div>
                     <div className="form-group">
                         <label className="red">PASSWORD</label>
-                        <input onChange={uphand} name="password" className="form-control" type="number"/>
+                        <input onChange={uphand} name="password" className="form-control" type="password"/>
                     </div>
-                    <button onClick={submit} className="btn btn-primary">LOGIN</button>
+                    <button onClick={submit} ref={Reference} className="btn btn-primary" >LOGIN</button>
                     <h4 className="mt-3">For new user <Link className="red" to='/Reg'>Register</Link> </h4>
                 </form>
             </div>

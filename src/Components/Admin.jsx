@@ -4,7 +4,7 @@ import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import { useAuth } from "./Auth"
 let Admin=()=>{
-    let{islg}=useAuth()
+    let{islg,uplg}=useAuth()
     let[st,upstate]=useState([])
     useEffect(()=>{
         Axios.get('http://localhost:8080/product/all').then((r)=>{
@@ -14,6 +14,8 @@ let Admin=()=>{
     let nav=useNavigate()
     let lg=()=>{
         Axios.put('http://localhost:8080/login/logout').then().catch();
+        uplg(false)
+        localStorage.removeItem("islogin")
         nav('/Login')
     }
     let uphand=(data)=>{
@@ -36,7 +38,7 @@ let Admin=()=>{
     let submitHandler=(event)=>{
         event.preventDefault();
         na('/Singlepage',{state:id})
-        window.location.reload()
+        // window.location.reload()
         // na(0)
     }
     return <>
@@ -60,6 +62,8 @@ let Admin=()=>{
                     <li><Link to='/Add' className="nav-link">Add-product</Link></li>
                     {/* <li><Link className="nav-link">Update</Link></li> */}
                     <li><Link to='/Admin' className="nav-link">Admin</Link></li>
+                    <li><Link to='/placedorder' className="nav-link"> Placed-Order</Link></li>
+                    <li><Link to='/receivedorder' className="nav-link"> Received-Order</Link></li>
                     <li onClick={lg}><Link  className="nav-link">Logout</Link></li>
                 </ul>
             </div>

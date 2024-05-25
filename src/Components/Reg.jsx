@@ -1,6 +1,7 @@
 import  Axios  from "axios"
 import { useState } from "react"
 import { useRef } from "react"
+import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 let Reg=()=>{
     let nav=useNavigate()
@@ -8,6 +9,18 @@ let Reg=()=>{
         username:"",
         password:0
     })
+    let Reference=useRef()
+    useEffect(()=>{
+        if(msg.username.length>0 && msg.password.length>0)
+        {
+            Reference.current.disabled=false
+        }
+        else
+        {
+            Reference.current.disabled=true
+        }
+    })
+    let r = useRef();
     let uphand=(event)=>{
         upmsg({...msg,[event.target.name]:event.target.value})
     }
@@ -19,19 +32,18 @@ let Reg=()=>{
         }).catch(()=>{
             
         });
+    
+
+        // if(msg.username.length===0)
+        // {
+        //     r.current.disabled=true
+        // }
+        // else
+        // {
+        //     r.current.disabled=false
+        // }
         
     }
-    let r = useRef();
-
-// if (msg.username.length > 0 || msg.password.length > 0) {
-//     if (r.current) {
-//         r.current.disabled = false;
-//     }
-// } else {
-//     if (r.current) {
-//         r.current.disabled = true;
-//     }
-// }
     return <div className="bgimg">
     <div className="container " >
         <div className="card-body">
@@ -43,9 +55,9 @@ let Reg=()=>{
                     </div>
                     <div className="form-group">
                         <label className="red">PASSWORD</label>
-                        <input onChange={uphand} name="password" className="form-control" type="number"/>
+                        <input onChange={uphand} name="password" className="form-control" type="password"/>
                     </div>
-                    <button onClick={submit} className="btn btn-primary">Register</button>
+                    <button onClick={submit} ref={Reference} className="btn btn-primary" >Register</button>
                     <h4 className="mt-3">For new user <Link className="red" to='/Login'>Login</Link> </h4>
                 </form>
             </div>

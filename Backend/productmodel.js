@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 let productschema=mongoose.Schema({
+    username:{
+        type: String,
+        require:true
+    },
     id:{
         type: Number,
         require:true
